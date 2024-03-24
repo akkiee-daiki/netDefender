@@ -1,0 +1,17 @@
+{
+    "name": "Net Defender",
+    "version": "1.0.0",
+    "manifest_version": 3,
+    "description": "It prevents user on keeping net-surfing.",
+    "action" : {
+        "default_popup": "dialog.html"
+    },
+    "content_scripts": [{
+        "matches": [
+            "https://example.com/"
+        ],
+        "js": [
+        "content.js"
+        ]
+    }]
+}
