@@ -11,8 +11,8 @@
             "https://example.com/"
         ],
         "css": ["dialog.css"],
-        "content.js"
         "js": [
+            "content.js"
         ]
     }]
 }
