@@ -29,7 +29,7 @@
     position: relative;
     display: inline-block;
     vertical-align: middle;
-    max-width: 500px;
+    max-width: 1000px;
     width: 90%;
 }
 
@@ -53,6 +53,7 @@
 }
 
 .modal-content {
+    width: 80%;
     background: #fff;
     border: 2px solid #000;
     text-align: left;
@@ -88,6 +89,7 @@ p {
 }
 
 modal-content .gray-bg .txt {
+    width: 80%;
     font-size: 12px;
 }
 
@@ -95,6 +97,10 @@ modal-content .gray-bg .txt {
     text-align: center;
     font-size: 24px;
     font-weight: bold;
+}
+
+.btn-area {
+    width: 80%
 }
 
 .btn-area>a {
@@ -109,4 +115,8 @@ modal-content .gray-bg .txt {
     margin-top: 20px;
     margin-inline: auto;
     border: 2px solid #CA353B;
+}
+
+.modal-content>.inn, .gray-bg, .btn-area {
+    width: 80%
 }
