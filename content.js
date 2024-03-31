@@ -1,6 +1,7 @@
 window.onload = function(){
     const bodyTag = document.getElementsByTagName("body")[0];
-    bodyTag.innerHTML = `
+
+    bodyTag.innerHTML += `
     <style>
     .modal-container.active {
         opacity: 1;
@@ -30,10 +31,11 @@ window.onload = function(){
     }
     
     .modal-body {
+        margin: 1em auto;
         position: relative;
         display: inline-block;
         vertical-align: middle;
-        max-width: 500px;
+        max-width: 1000px;
         width: 90%;
     }
     
@@ -57,6 +59,7 @@ window.onload = function(){
     }
     
     .modal-content {
+        width: 80%
         background: #fff;
         border: 2px solid #000;
         text-align: left;
@@ -92,6 +95,7 @@ window.onload = function(){
     }
     
     modal-content .gray-bg .txt {
+        width: 80%;
         font-size: 12px;
     }
     
@@ -99,6 +103,10 @@ window.onload = function(){
         text-align: center;
         font-size: 24px;
         font-weight: bold;
+    }
+
+    .btn-area {
+        width: 80%
     }
     
     .btn-area>a {
@@ -113,6 +121,10 @@ window.onload = function(){
         margin-top: 20px;
         margin-inline: auto;
         border: 2px solid #CA353B;
+    }
+
+    .modal-content>.inn, .gray-bg, .btn-area {
+        width: 80%
     }
     </style>
         <div id="js-netDefModal" class="modal-container active">
@@ -136,12 +148,17 @@ window.onload = function(){
         </div>
         <script src="content.js" defer></script>
     `;
+
+    // modalが表示されている場合のみに処理を限定
+    const netDefModal = document.getElementById("js-netDefModal");
+    const netDefModalCloseBtn = document.getElementById("js-netDefModalClose");
+    if (!netDefModal || !netDefModalCloseBtn) {
+        netDefModalCloseBtn.addEventListener("click", () => {
+            netDefModal.style.display = "none";
+        });
+    }
+    
 }
 
-// modalが表示されている場合のみに処理を限定
-const netDefModal = document.getElementById("js-netDefModal");
-const netDefModalCloseBtn = document.getElementById("js-netDefModalClose");
-netDefModalCloseBtn.addEventListener("click", () => {
-    netDefModal.style.display = "none";
-});
+
 
