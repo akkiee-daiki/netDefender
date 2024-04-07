@@ -11,8 +11,6 @@ window.onload = function () {
     {title: "【こりゃやべぇww】腹筋バキバキ!!追い込みまくる地獄の4分間？？", url: "https://www.youtube.com/watch?v=nh7zNUq2MzM&list=PLJqbpYzIaQTRdfs4wgRPFAD48pGljciTH&index=5"}, 
     {title: "【ルーティーン】12分間の大臀筋(お尻)トレーニング！1週間で全身を鍛える！", url: "https://www.youtube.com/watch?v=2p7tHVT4pO8&list=PLJqbpYzIaQTRdfs4wgRPFAD48pGljciTH&index=6"},
     {title: "ダンベルを使った筋トレ｜おしり【公式】", url: "https://www.youtube.com/watch?v=wwIlWyuo9DA&list=PLJqbpYzIaQTRdfs4wgRPFAD48pGljciTH&index=7"},
-    {title: "腰の振り方・動かし方のコツ【体の使い方レッスン動画】", url: "https://www.youtube.com/watch?v=j1iDzlHOzJE&list=PLJqbpYzIaQTRdfs4wgRPFAD48pGljciTH&index=8"},
-    {title: "女性が喜ぶ腰の振り方【テクニック伝授】", url: "https://www.youtube.com/watch?v=xKovbi3Z2QM&list=PLJqbpYzIaQTRdfs4wgRPFAD48pGljciTH&index=9"},
     {title: "【7分】これ一回で十分！超高強度下半身トレーニング【筋トレ】", url: "https://www.youtube.com/watch?v=LOuh44mpQRg&list=PLJqbpYzIaQTRdfs4wgRPFAD48pGljciTH&index=11"},
     {title: "【静かにできるHIIT】スクワットだけ!!脂肪がガンガン燃える自宅トレ!!", url: "https://www.youtube.com/watch?v=iWlpOVUTjag&list=PLJqbpYzIaQTRdfs4wgRPFAD48pGljciTH&index=12"},
     {title: "肩全体に効きまくる！7分間ダンベルトレーニング", url: "https://www.youtube.com/watch?v=wpKUHfReW-0&list=PLJqbpYzIaQTRdfs4wgRPFAD48pGljciTH&index=13"},
