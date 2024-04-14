@@ -23,6 +23,15 @@ window.onload = function () {
     {title: "初心者が背中に筋肉を付けるためのベストメニュー【ダンベルだけ】", url: "https://www.youtube.com/watch?v=6M7MyNE5gZo&list=PLJqbpYzIaQTRdfs4wgRPFAD48pGljciTH&index=20"}
   ];
 
+  var allowedUlElement = '<ul>';
+  allowedUrlList.forEach(function(value) {
+    allowedUlElement += '<li>';
+    allowedUlElement += '<a href="' + value['url'] + '">' + value['title'] + '</a>'
+    allowedUlElement += '</li>';
+  });
+  allowedUlElement += '</ul>';
+  console.log(allowedUlElement);
+
   bodyTag.innerHTML += `
     <style>
     .modal-container.active {
