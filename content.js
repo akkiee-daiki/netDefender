@@ -24,11 +24,14 @@ window.onload = function () {
   ];
 
   var allowedUlElement = '<ul>';
-  allowedUrlList.forEach(function(value) {
+  for (let index = 0; index < allowedUrlList.length; index++) {
     allowedUlElement += '<li>';
-    allowedUlElement += '<a href="' + value['url'] + '">' + value['title'] + '</a>'
+    allowedUlElement += '<a href="' + allowedUrlList[index]['url'] + '">' + allowedUrlList[index]['title'] + '</a>'
     allowedUlElement += '</li>';
-  });
+    if (index === 4) {
+        break;
+    }
+  }
   allowedUlElement += '</ul>';
   console.log(allowedUlElement);
 
@@ -173,6 +176,7 @@ window.onload = function () {
                     <!-- ここで許可されているYouTube動画へのリンク -->
                     <div class="btn-area">
                         <a href="">お問い合わせはこちらから</a>
+                        ${allowedUlElement}
                     </div
                 </div>
             </div>
