@@ -187,7 +187,8 @@ window.onload = function () {
   // modalが表示されている場合のみに処理を限定
   const netDefModal = document.getElementById("js-netDefModal");
   const netDefModalCloseBtn = document.getElementById("js-netDefModalClose");
-  if (!netDefModal || !netDefModalCloseBtn) {
+
+  if (netDefModal !== null && netDefModalCloseBtn !== null) {
     netDefModalCloseBtn.addEventListener("click", () => {
       netDefModal.style.display = "none";
     });
