@@ -1,5 +1,13 @@
 window.onload = function () {
   const bodyTag = document.getElementsByTagName("body")[0];
+  let nfCloseBtnHiddenTime = 5000;
+  let defenseSiteDomainList = [
+    "www.youtube.com"
+  ];
+
+  let currentUri = new URL(window.location.href);
+  let currentDomain = currentUri.hostname;
+
 
   // 許可されているYouTube等のURLを修正(playListなど(YouTube APIから取得))
   let allowedUrlList = [
@@ -44,7 +52,7 @@ window.onload = function () {
     
     .modal-container {
         width: 100%;
-        height: 100%;
+        height: 80vh;
         position: fixed;
         top: 0;
         left: 0;
@@ -83,6 +91,10 @@ window.onload = function () {
         padding: 4px 15px;
         cursor: pointer;
         border-radius: 5px 5px 0 0;
+    }
+
+    #js-netDefModalClose {
+        display: none
     }
     
     @media only screen and (min-width: 641px) {
@@ -139,6 +151,10 @@ window.onload = function () {
         font-weight: bold;
     }
 
+    .modal-content .allowed-list {
+        font-size: 14px
+    }
+
     .btn-area {
         width: 80%
     }
@@ -184,13 +200,18 @@ window.onload = function () {
         <script src="content.js" defer></script>
     `;
 
-  // modalが表示されている場合のみに処理を限定
-  const netDefModal = document.getElementById("js-netDefModal");
-  const netDefModalCloseBtn = document.getElementById("js-netDefModalClose");
+  setTimeout(() => {
+    // modalが表示されている場合のみに処理を限定
+    const netDefModal = document.getElementById("js-netDefModal");
+    const netDefModalCloseBtn = document.getElementById("js-netDefModalClose");
 
-  if (netDefModal !== null && netDefModalCloseBtn !== null) {
-    netDefModalCloseBtn.addEventListener("click", () => {
-      netDefModal.style.display = "none";
-    });
-  }
+    netDefModalCloseBtn.style.display = 'inline-block';
+
+    if (netDefModal !== null && netDefModalCloseBtn !== null) {
+        netDefModalCloseBtn.addEventListener("click", () => {
+          netDefModal.style.display = "none";
+        });
+      }
+  }, nfCloseBtnHiddenTime);
+  
 };
