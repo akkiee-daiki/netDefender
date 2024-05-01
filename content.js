@@ -9,7 +9,7 @@ window.onload = function () {
 
   let currentUri = new URL(window.location.href);
   let currentDomain = currentUri.hostname;
-
+  let currentHref = currentUri.href;
 
   // 許可されているYouTube等のURLを修正(playListなど(YouTube APIから取得))
   let allowedTitleAndUrlList = [
@@ -32,6 +32,22 @@ window.onload = function () {
     {title: "【4分】腹回りの脂肪を燃焼させる腹筋サーキット【腰と横腹も鍛える７種目】", url: "https://www.youtube.com/watch?v=ihsZ5mylHk0&list=PLJqbpYzIaQTRdfs4wgRPFAD48pGljciTH&index=19"},
     {title: "初心者が背中に筋肉を付けるためのベストメニュー【ダンベルだけ】", url: "https://www.youtube.com/watch?v=6M7MyNE5gZo&list=PLJqbpYzIaQTRdfs4wgRPFAD48pGljciTH&index=20"}
   ];
+
+  let allowedTitleList = [];
+  allowedTitleAndUrlList.forEach(value => allowedTitleList.push(value['title'] + " - YouTube"));
+
+  // ブロック対象でないサイトのときは処理を終了
+  // しかし、defenseSiteDomainListの中でも、allowedUrlListのものはOK
+  if (!defenseSiteDomainList.includes(currentDomain)) {
+    return false;
+  }
+// ページのタイトルタグを取得
+let titleElement = document.getElementsByTagName("title")[0];
+let titleElementText = titleElement.textContent;
+  // ブロック対象の中でも許可されているページのタイトルはモーダルに表示しない
+  if (allowedTitleList.includes(titleElementText)) {
+    return false;
+  }
 
   var allowedUlElement = '<ul>';
   for (let index = 0; index < allowedTitleAndUrlList.length; index++) {
