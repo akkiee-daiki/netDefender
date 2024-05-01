@@ -12,7 +12,7 @@ window.onload = function () {
 
 
   // 許可されているYouTube等のURLを修正(playListなど(YouTube APIから取得))
-  let allowedUrlList = [
+  let allowedTitleAndUrlList = [
     // name: 'URL'
     {title: "【2分】胸の上部・中部・下部を鍛える大胸筋トレ【プッシュアップバー自重トレ】", url: "https://www.youtube.com/watch?v=ZI7URsS6VrA&list=PLJqbpYzIaQTRdfs4wgRPFAD48pGljciTH&index=10"},
     {title: "【たった1セット】誰でも必ず効く！大胸筋がパンパンになるやばいメニュー", url: "https://www.youtube.com/watch?v=bDz45AJjpEM&list=PLJqbpYzIaQTRdfs4wgRPFAD48pGljciTH&index=2"},
@@ -34,16 +34,15 @@ window.onload = function () {
   ];
 
   var allowedUlElement = '<ul>';
-  for (let index = 0; index < allowedUrlList.length; index++) {
+  for (let index = 0; index < allowedTitleAndUrlList.length; index++) {
     allowedUlElement += '<li>';
-    allowedUlElement += '<a href="' + allowedUrlList[index]['url'] + '">' + allowedUrlList[index]['title'] + '</a>'
+    allowedUlElement += '<a href="' + allowedTitleAndUrlList[index]['url'] + '">' + allowedTitleAndUrlList[index]['title'] + '</a>'
     allowedUlElement += '</li>';
     if (index === 4) {
         break;
     }
   }
   allowedUlElement += '</ul>';
-  console.log(allowedUlElement);
 
   bodyTag.innerHTML += `
     <style>
