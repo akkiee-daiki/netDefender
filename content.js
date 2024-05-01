@@ -2,7 +2,9 @@ window.onload = function () {
   const bodyTag = document.getElementsByTagName("body")[0];
   let nfCloseBtnHiddenTime = 5000;
   let defenseSiteDomainList = [
-    "www.youtube.com"
+    "example.com",
+    "www.youtube.com",
+    "example.com"
   ];
 
   let currentUri = new URL(window.location.href);
