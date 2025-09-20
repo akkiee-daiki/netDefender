@@ -3,16 +3,35 @@
     "version": "1.0.0",
     "manifest_version": 3,
     "description": "It prevents user on keeping net-surfing.",
-    "action" : {
+    "action": {
         "default_popup": "dialog.html"
     },
-    "content_scripts": [{
-        "matches": [
-            "https://example.com/"
-        ],
-        "css": ["dialog.css"],
-        "js": [
-            "content.js"
-        ]
-    }]
+    "content_scripts": [
+        {
+            "matches": [
+                "https://example.com/",
+                "https://www.youtube.com/*"
+            ],
+            "css": [
+                "dialog.css"
+            ],
+            "js": [
+                "content.js"
+            ],
+            "run_at": "document_end",
+            "all_frames": true
+        }
+    ],
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "content/allowedUrl.json",
+                "content/content.html",
+                "content/content.css"
+            ],
+            "matches": [
+                "<all_urls>"
+            ]
+        }
+    ]
 }
