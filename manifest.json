@@ -6,19 +6,29 @@
     "action": {
         "default_popup": "dialog.html"
     },
+    "background": {
+        "service_worker": "background/service_worker.js",
+        "type": "module"
+    },
+    "permissions": [
+        "tabs",
+        "webNavigation",
+        "storage"
+    ],
+    "host_permissions": [
+        "https://example.com/*",
+        "https://www.youtube.com/*"
+    ],
     "content_scripts": [
         {
             "matches": [
-                "https://example.com/",
+                "https://example.com/*",
                 "https://www.youtube.com/*"
             ],
-            "css": [
-                "dialog.css"
-            ],
             "js": [
-                "content.js"
+                "content/main.js"
             ],
-            "run_at": "document_end",
+            "run_at": "document_idle",
             "all_frames": true
         }
     ],

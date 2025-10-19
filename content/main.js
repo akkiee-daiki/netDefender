@@ -1,6 +1,8 @@
 (() => {
-  const run = async () => {
+  async function run() {
     try {
+      document.getElementById("jsNetDefModal")?.remove();
+
       const jsonFile = chrome.runtime.getURL("content/allowedUrl.json");
       const jsonData = await fetch(jsonFile).then((res) => res.json());
       const htmlFile = chrome.runtime.getURL("content/content.html");
@@ -45,7 +47,7 @@
       for (let index = 0; index < allowedTitleAndUrlList.length; index++) {
         const liElement = document.createElement("li");
         const aElement = document.createElement("a");
-        aElement.href += allowedTitleAndUrlList[index]["url"];
+        aElement.href = allowedTitleAndUrlList[index]["url"];
         aElement.textContent = allowedTitleAndUrlList[index]["title"];
         liElement.appendChild(aElement);
         allowedUlElement.appendChild(liElement);
@@ -68,9 +70,8 @@
       setTimeout(() => {
         // modalが表示されている場合のみに処理を限定
         const netDefModal = document.getElementById("jsNetDefModal");
-        const netDefModalCloseBtn = document.getElementById(
-          "jsNetDefModalClose"
-        );
+        const netDefModalCloseBtn =
+          document.getElementById("jsNetDefModalClose");
 
         netDefModalCloseBtn.style.display = "inline-block";
 
@@ -81,12 +82,62 @@
         }
       }, nfCloseBtnHiddenTime);
     } catch (error) {}
-  };
+  }
+
+  chrome.runtime.onMessage.addListener((msg) => {
+    if (msg?.type === "RUN_MAIN") {
+      console.log("[content] RUN_MAIN <-", msg.url);
+      run();
+    }
+  });
 
   // 初期表示時
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", run, { once: true});
+    document.addEventListener("DOMContentLoaded", run, { once: true });
   } else {
     run();
   }
+
+  // SPA対応
+  (function patchHistory(history) {
+    if (history.__patchedByExt) return;
+    history.__patchedByExt = true;
+
+    const _push = history.pushState;
+    const _replace = history.replaceState;
+    const notify = () => window.dispatchEvent(new Event("locationchange"));
+
+    // 元のpushStateイベントの処理はそのままで、その処理の最中にnotify()を呼び出している
+    history.pushState = function (...a) {
+      const r = _push.apply(history, a); // 元の動作の処理はそのまま
+      notify(); // locationchangeイベントを発火
+      return r;
+    };
+
+    history.replaceState = function (...a) {
+      const r = _replace.apply(history, a);
+      notify();
+      return r;
+    };
+    window.addEventListener("popstate", notify);
+  })(window.history);
+
+  let lastUrl = location.href;
+  // YouTubeは遷移直後に段階的にDOMが生えます。
+  // → debounce(150~300ms) を噛ませたり、必要な要素が見つかるまでループ/Observerで待つ。
+  const debounce = (fn, ms = 150) => {
+    let t;
+    return (...a) => {
+      clearTimeout(t);
+      t = setTimeout(() => fn(...a), ms);
+    };
+  };
+  const runDebounce = debounce(run, 150);
+
+  window.addEventListener("locationchange", () => {
+    if (location.href !== lastUrl) {
+      lastUrl = location.href;
+      runDebounce();
+    }
+  });
 })();
