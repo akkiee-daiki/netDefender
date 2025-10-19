@@ -1,4 +1,6 @@
 (() => {
+  let runTimerId = null;
+
   async function run() {
     try {
       document.getElementById("jsNetDefModal")?.remove();
@@ -88,14 +90,23 @@
     if (msg?.type === "RUN_MAIN") {
       console.log("[content] RUN_MAIN <-", msg.url);
       run();
+      scheduleRun();
     }
   });
 
   // 初期表示時
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", run, { once: true });
+    document.addEventListener(
+      "DOMContentLoaded",
+      () => {
+        run();
+        scheduleRun();
+      },
+      { once: true }
+    );
   } else {
     run();
+    scheduleRun();
   }
 
   // SPA対応
@@ -132,12 +143,29 @@
       t = setTimeout(() => fn(...a), ms);
     };
   };
-  const runDebounce = debounce(run, 150);
+  const runDebounce = debounce(() => {
+    run();
+    scheduleRun();
+  }, 150);
 
   window.addEventListener("locationchange", () => {
     if (location.href !== lastUrl) {
       lastUrl = location.href;
       runDebounce();
     }
+  });
+
+  function scheduleRun() {
+    const delayMs = 20 * 60 * 1000; // 1分
+    console.log("aaaa");
+    if (runTimerId) clearTimeout(runTimerId);
+    runtimeId = setTimeout(() => {
+      run();
+      scheduleRun();
+    }, delayMs);
+  }
+
+  window.addEventListener("beforeunload", () => {
+    if (runTimerId) clearTimeout(runTimerId);
   });
 })();
