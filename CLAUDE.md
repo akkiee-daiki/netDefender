@@ -13,11 +13,18 @@
   - モーダル表示と同時に `<video>` 要素の再生を一時停止（`.pause()`）する
   - モーダルには「視聴を継続する」ボタンを配置し、意識的なアクションがあれば制限をリセットして視聴を再開できる
 # ディレクトリ構成と各フォルダの役割
-- `manifest.json`: 対象サイトを変えるときは `host_permissions`・`content_scripts.matches`・`web_accessible_resources.matches` を揃えて更新する（現在は example.com のみ）
-- `shared/constants.js`: ESModule。`chrome.storage.sync` のキー（`TIME_LIMIT_MINUTES` / `TARGET_DOMAINS` / `WHITELIST`）、デフォルト値、`loadSettings()` / `saveSettings()`
-- `background/service_worker.js`: アイコンのクリックで設定画面を開く
-- `options/`: 設定画面（Optionsページ）。`shared/constants.js` を static import する
-- `content/main.js`: content script（classic script）。`shared/constants.js` は `import(chrome.runtime.getURL(...))` で読み込むため、web_accessible_resources に含める必要がある。`WatchGuard` クラスが表示中の経過時間を計測し、制限時間に達するとモーダルを表示する
+- `manifest.json`: 静的な `content_scripts` / `host_permissions` は持たない。ホスト権限は `optional_host_permissions` から、設定画面での保存時に対象ドメインごとに要求する
+- `shared/constants.js`: ESModule。storage のキー・デフォルト値・読み書きヘルパー
+  - `chrome.storage.sync`: ユーザー設定（`TIME_LIMIT_MINUTES` / `TARGET_DOMAINS` / `WHITELIST`）
+  - `chrome.storage.local`: `WATCH_STATE`（`{ elapsedMs, lastTickAt }`）。全タブ共通の連続視聴時間
+- `shared/domain.js`: ドメインの正規化、マッチパターン生成（`*://*.<domain>/*`）、ホワイトリストのURLプレフィックス照合
+- `background/service_worker.js`: `TARGET_DOMAINS` と許可済み権限に合わせて `chrome.scripting.registerContentScripts` で content script を動的登録し、開いているタブにも注入する。アイコンのクリックで設定画面を開く
+- `options/`: 設定画面。`chrome.permissions.request` はユーザー操作の直後（await より前）に呼ぶ必要がある
+- `content/main.js`: content script（classic script）。`shared/*.js` は `import(chrome.runtime.getURL(...))` で読み込むため web_accessible_resources に含める
+  - `WatchGuard` クラスが1秒ごとに計測する。タブが表示中、または動画が再生中のときに、前回の計測（どのタブからでも）からの差分を `WATCH_STATE` に加算するので、複数タブでも二重に数えない。`BREAK_RESET_MINUTES` 以上間が空くとリセットされる
+  - 制限時間に達するとモーダルを表示し、`<video>` を pause、フルスクリーンを解除し、キー操作を遮断する。「視聴を継続する」で `WATCH_STATE` を0に戻し、`storage.onChanged` 経由で全タブのモーダルが閉じる
+  - SPA（YouTube）の遷移には毎 tick の `location.href` の判定で追従する。YouTube の動画ページではチャンネルリンクのURLもホワイトリスト判定に使う
+  - 再注入時は `net-defender:takeover` イベントで古いインスタンスを停止させる
 - `content/content.html` / `content.css`: モーダルのテンプレート。Shadow DOM 内に描画するため、CSS はホストページに漏れない
 # 使用している技術スタック・ライブラリ
 - Vanilla JavaScript (ESModules)

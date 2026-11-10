@@ -10,21 +10,22 @@
 <body>
   <main>
     <h1>Net Defender 設定</h1>
-    <form id="jsSettingsForm">
+    <form id="jsSettingsForm" novalidate>
       <label class="field">
         <span class="label">連続視聴の制限時間（分）</span>
-        <input type="number" id="jsTimeLimit" min="1" step="1" required>
+        <input type="number" id="jsTimeLimit" min="1" max="1440" step="1" required>
       </label>
 
-      <label class="field">
-        <span class="label">制限対象のドメイン</span>
-        <span class="hint">1行に1つ（例: example.com）</span>
+      <div class="field">
+        <label class="label" for="jsTargetDomains">制限対象のドメイン</label>
+        <span class="hint">1行に1つ（例: youtube.com）。サブドメインも対象になります。保存時にサイトへのアクセス許可を求めます。</span>
         <textarea id="jsTargetDomains" rows="5"></textarea>
-      </label>
+        <ul id="jsPermissionList" class="permission-list"></ul>
+      </div>
 
       <label class="field">
         <span class="label">ホワイトリスト</span>
-        <span class="hint">1行に1つ。この文字列で始まるURLは制限しません（例: https://example.com/allowed）</span>
+        <span class="hint">1行に1つ。このURLで始まるページは制限しません。YouTube はチャンネルURLも指定できます（例: https://www.youtube.com/@channel、https://www.youtube.com/watch?v=xxxx）</span>
         <textarea id="jsWhitelist" rows="5"></textarea>
       </label>
 

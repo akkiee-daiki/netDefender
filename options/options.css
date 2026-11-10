@@ -72,3 +72,21 @@ button:hover {
 .status {
   color: #2a7a2a;
 }
+
+.status.is-error {
+  color: #ca353b;
+}
+
+.permission-list {
+  margin: 4px 0 0;
+  padding-left: 20px;
+  font-size: 13px;
+}
+
+.permission-list .is-granted {
+  color: #2a7a2a;
+}
+
+.permission-list .is-denied {
+  color: #ca353b;
+}

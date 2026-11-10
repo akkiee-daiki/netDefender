@@ -15,31 +15,22 @@
         "type": "module"
     },
     "permissions": [
-        "storage"
+        "storage",
+        "scripting"
     ],
-    "host_permissions": [
-        "https://example.com/*"
-    ],
-    "content_scripts": [
-        {
-            "matches": [
-                "https://example.com/*"
-            ],
-            "js": [
-                "content/main.js"
-            ],
-            "run_at": "document_idle"
-        }
+    "optional_host_permissions": [
+        "*://*/*"
     ],
     "web_accessible_resources": [
         {
             "resources": [
                 "shared/constants.js",
+                "shared/domain.js",
                 "content/content.html",
                 "content/content.css"
             ],
             "matches": [
-                "https://example.com/*"
+                "<all_urls>"
             ]
         }
     ]
