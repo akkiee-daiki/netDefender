@@ -1,13 +1,4 @@
-chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-  const url = changeInfo.url ?? tab?.url;
-  if (!url) return;
+// 拡張機能アイコンのクリックで設定画面を開く
+chrome.action.onClicked.addListener(() => {
+  chrome.runtime.openOptionsPage();
 });
-
-chrome.webNavigation.onHistoryStateUpdated.addListener(
-  (d) => {
-    chrome.tabs
-      .sendMessage(d.tabId, { type: "RUN_MAIN", url: d.url })
-      .catch(() => {});
-  },
-  { url: [{ hostContains: "youtube.com" }] }
-);

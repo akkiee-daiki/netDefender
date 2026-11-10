@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Net Defender 設定</title>
+  <link rel="stylesheet" href="options.css">
+  <script type="module" src="options.js"></script>
+</head>
+<body>
+  <main>
+    <h1>Net Defender 設定</h1>
+    <form id="jsSettingsForm">
+      <label class="field">
+        <span class="label">連続視聴の制限時間（分）</span>
+        <input type="number" id="jsTimeLimit" min="1" step="1" required>
+      </label>
+
+      <label class="field">
+        <span class="label">制限対象のドメイン</span>
+        <span class="hint">1行に1つ（例: example.com）</span>
+        <textarea id="jsTargetDomains" rows="5"></textarea>
+      </label>
+
+      <label class="field">
+        <span class="label">ホワイトリスト</span>
+        <span class="hint">1行に1つ。この文字列で始まるURLは制限しません（例: https://example.com/allowed）</span>
+        <textarea id="jsWhitelist" rows="5"></textarea>
+      </label>
+
+      <div class="actions">
+        <button type="submit">保存</button>
+        <span id="jsStatus" class="status" role="status"></span>
+      </div>
+    </form>
+  </main>
+</body>
+</html>

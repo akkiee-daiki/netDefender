@@ -2,45 +2,44 @@
     "name": "Net Defender",
     "version": "1.0.0",
     "manifest_version": 3,
-    "description": "It prevents user on keeping net-surfing.",
+    "description": "無意識に長時間ネットサーフィンや動画視聴を続けてしまうことを防ぎます。",
     "action": {
-        "default_popup": "dialog.html"
+        "default_title": "Net Defender の設定を開く"
+    },
+    "options_ui": {
+        "page": "options/options.html",
+        "open_in_tab": true
     },
     "background": {
         "service_worker": "background/service_worker.js",
         "type": "module"
     },
     "permissions": [
-        "tabs",
-        "webNavigation",
         "storage"
     ],
     "host_permissions": [
-        "https://example.com/*",
-        "https://www.youtube.com/*"
+        "https://example.com/*"
     ],
     "content_scripts": [
         {
             "matches": [
-                "https://example.com/*",
-                "https://www.youtube.com/*"
+                "https://example.com/*"
             ],
             "js": [
                 "content/main.js"
             ],
-            "run_at": "document_idle",
-            "all_frames": true
+            "run_at": "document_idle"
         }
     ],
     "web_accessible_resources": [
         {
             "resources": [
-                "content/allowedUrl.json",
+                "shared/constants.js",
                 "content/content.html",
                 "content/content.css"
             ],
             "matches": [
-                "<all_urls>"
+                "https://example.com/*"
             ]
         }
     ]

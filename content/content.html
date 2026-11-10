@@ -1,18 +1,16 @@
-<div id="jsNetDefModal" class="modal-container active">
-    <div class="modal-body">
-        <button type="button" id="jsNetDefModalClose" class="modal-close">close</button><!-- 閉じるボタン -->
-        <!-- モーダル内のコンテンツ -->
+<div class="modal-container">
+    <div class="modal-body" role="dialog" aria-modal="true" aria-labelledby="jsNetDefTitle">
         <div class="modal-content">
             <div class="inn">
                 <span class="en">WARNING</span>
-                <p class="txt">WARNING</p>
+                <p class="txt" id="jsNetDefTitle">制限時間に達しました</p>
             </div>
             <div class="gray-bg">
-                <p class="txt">節度ある視聴をしてください。</p>
+                <p class="txt-small">節度ある視聴をしてください。<br>本当に続けますか？</p>
             </div>
-            <!-- ここで許可されているYouTube動画へのリンク -->
-            <div id="jsAllowedArea"></div>
+            <div class="btn-area">
+                <button type="button" id="jsContinueBtn">視聴を継続する</button>
+            </div>
         </div>
     </div>
 </div>
-<script src="content.js" defer></script>
